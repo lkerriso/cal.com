@@ -1,12 +1,15 @@
-# Base image
+# Use Node with Corepack (Yarn 3+) support
 FROM node:18-alpine
+
+# Enable corepack to support Yarn 3+
+RUN corepack enable
 
 # Set working directory
 WORKDIR /app
 
-# Install dependencies
+# Copy and install dependencies
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
+RUN yarn install --immutable
 
 # Copy the rest of the code
 COPY . .
